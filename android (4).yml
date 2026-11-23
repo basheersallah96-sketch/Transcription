@@ -1,0 +1,96 @@
+name: Build Android APK
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Prepare web files
+        run: |
+          mkdir -p www
+          F="$(find . -maxdepth 1 -name '*.html' | head -1)"
+          if [ -z "$F" ]; then echo "No html file found in repository root"; exit 1; fi
+          echo "Using: $F"
+          cp "$F" www/index.html
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Convert AI model to ONNX
+        run: |
+          pip install --quiet --extra-index-url https://download.pytorch.org/whl/cpu torch==2.4.1 transformers==4.44.2 onnx==1.16.2 onnxruntime==1.19.2 numpy==1.26.4 huggingface_hub
+          mkdir -p www/model
+          python - <<'PY'
+          import shutil, torch
+          from huggingface_hub import hf_hub_download
+          from transformers import Wav2Vec2ForCTC
+          from onnxruntime.quantization import quantize_dynamic, QuantType
+          M = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"
+          model = Wav2Vec2ForCTC.from_pretrained(M).eval()
+          dummy = torch.randn(1, 16000 * 5)
+          torch.onnx.export(model, (dummy,), "/tmp/model.onnx",
+              input_names=["input_values"], output_names=["logits"],
+              dynamic_axes={"input_values": {0: "b", 1: "n"}, "logits": {0: "b", 1: "t"}},
+              opset_version=14, dynamo=False)
+          quantize_dynamic("/tmp/model.onnx", "www/model/model_q.onnx",
+              weight_type=QuantType.QInt8, op_types_to_quantize=["MatMul"])
+          shutil.copy(hf_hub_download(M, "vocab.json"), "www/model/vocab.json")
+          PY
+          ls -la www/model
+
+      - name: Add ONNX runtime for the app
+        run: |
+          npm init -y
+          npm i onnxruntime-web@1.19.2
+          mkdir -p www/ort
+          D=node_modules/onnxruntime-web/dist
+          cp $D/ort.wasm.min.js $D/ort-wasm-simd-threaded.wasm $D/ort-wasm-simd-threaded.mjs www/ort/
+          cp $D/ort.wasm.min.mjs www/ort/ || echo 'no esm bundle'
+          ls -la www/ort
+
+      - name: Create Android project
+        run: |
+          npm init -y
+          npm i @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
+          npm i @capacitor-community/speech-recognition@6 || echo "speech plugin skipped"
+          npx cap init Transcription com.transcription.app --web-dir=www
+          npx cap add android
+          M=android/app/src/main/AndroidManifest.xml
+          sed -i 's|</manifest>|    <uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />\n    <queries><intent><action android:name="android.speech.RecognitionService" /></intent></queries>\n</manifest>|' $M
+          echo 'org.gradle.jvmargs=-Xmx4g' >> android/gradle.properties
+          npx cap sync android
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Save APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Transcription.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Transcription-APK
+          path: Transcription.apk
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest -y --cleanup-tag || true
+          gh release create latest Transcription.apk --title "Transcription APK" --notes "Download and install on Android"
