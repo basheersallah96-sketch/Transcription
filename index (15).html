@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<title>Transcription</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1c1b19;--mut:#6b675e;--acc:#0f766e;--acc2:#e2f3f0;--line:#e4e0d6;--warn:#b45309;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14130f;--card:#1e1d19;--ink:#f1eee6;--mut:#a39f94;--acc:#2dd4bf;--acc2:#12312d;--line:#33312a;--warn:#fbbf24}}
+:root[data-theme="dark"]{--bg:#14130f;--card:#1e1d19;--ink:#f1eee6;--mut:#a39f94;--acc:#2dd4bf;--acc2:#12312d;--line:#33312a;--warn:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.6}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:22px;margin:6px 0 2px}
+.sub{color:var(--mut);font-size:14px;margin:0 0 16px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+textarea{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:20px;resize:none;outline:none;min-height:70px}
+.row{display:flex;gap:8px;align-items:center;margin-top:8px}
+button{font:inherit;border:0;border-radius:12px;padding:11px 16px;cursor:pointer}
+.go{background:var(--acc);color:#fff;flex:1;font-weight:600}
+.mic{background:var(--acc2);color:var(--acc);min-width:48px;height:44px;padding:0 10px;font-size:20px}
+.mic.on{background:#dc2626;color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}
+.chip{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:5px 11px;border-radius:99px;font-size:14px}
+.tabs{display:flex;gap:6px;margin:18px 0 10px}
+.tab{flex:1;background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 4px;font-size:14px}
+.tab.a{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+.full{background:var(--acc2);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.full b{display:block;font-size:12px;color:var(--mut);font-weight:500}
+.ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Noto Sans","Segoe UI",serif;direction:ltr;text-align:left;font-size:22px;letter-spacing:.3px}
+.w{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.w .ar{font-size:18px}
+.w .r{text-align:left;direction:ltr}
+.bar{height:5px;border-radius:9px;background:var(--line);margin-top:5px;width:90px;overflow:hidden;margin-inline-start:auto}
+.bar i{display:block;height:100%;background:var(--acc)}
+.low .bar i{background:var(--warn)}
+.cf{font-size:11px;color:var(--mut)}
+.note{font-size:12.5px;color:var(--mut);margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.empty{color:var(--mut);text-align:center;padding:22px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 dir="ltr" style="text-align:right">🎙️ Transcription</h1>
+<p class="sub">من الكلام لـ IPA، بكل اللهجات الأردنية بدون ما تختار لهجة</p>
+
+<div class="box">
+<textarea id="t" rows="2" placeholder="احكي أو اكتب جملة…">كيفك شو بدك تشرب قهوة</textarea>
+<div class="row">
+<button class="mic" id="mic" title="تسجيل">🎤</button>
+<button class="go" id="go">حوّل للكتابة الصوتية</button>
+</div>
+<div class="chips" id="chips"></div>
+<div class="row"><button class="chip" id="fbtn">📁 ملف صوتي</button><button class="chip" id="cfg">⚙️ السيرفر</button><input type="file" id="f" accept="audio/*" hidden></div>
+<input id="api" placeholder="الصق رابط السيرفر هون" dir="ltr" style="display:none;width:100%;margin-top:8px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit">
+</div>
+
+<div class="tabs" id="tabs"></div>
+<div id="srv"></div>
+<div id="out"><div class="empty">النتيجة بتظهر هون</div></div>
+
+<p class="note">التسجيل بالمايك بيروح كصوت خام للسيرفر بدون تنظيف، فالتأتأة والحشو بتنلقط. نسخة تجريبية: المحرّك الحالي مبني على قواعد صوتية ومعجم صغير. بيانات الصوت الخام ونموذج الذكاء الاصطناعي بينضافوا بالمرحلة الجاية. الكلمات اللي مش بالمعجم بتظهر بثقة منخفضة (برتقالي) لأن التشكيل مش مكتوب.</p>
+</div>
+
+<script>
+const LEX={"كيفك":"Ki:fak","قلب":"Qalb","قلت":"Qult","قهوة":"Qahwe","هلق":"hallaQ","كتير":"Kti:r","جميل":"Jami:l","شو":"ʃu:","بدك":"biddak","بدي":"biddi","وين":"we:n","منيح":"mni:ħ","يلا":"jalla","شكرا":"ʃukran","مرحبا":"marħaba","صباح":"sˤaba:ħ","الخير":"ilxe:r","تشرب":"tiʃrab","انت":"ʔinte","ولد":"walad","بيت":"bajt","كلب":"kalb","قمر":"Qamar","الجو":"iljaww","حلو":"ħilu","اهلا":"ʔahlan","سلام":"sala:m","عليكم":"ʕalajkum","الله":"alla:h","ماما":"ma:ma","بابا":"ba:ba","اكل":"ʔakil","ماي":"ma:j","مي":"mi:j","بنت":"bint","شب":"ʃabb","دار":"da:r","كبير":"Kbi:r","صغير":"sˤɣi:r","طيب":"tˤajjib","زلمة":"zalame","حكي":"ħaki:","قدام":"Quddam","وقت":"waQt","قال":"Qa:l","قريب":"Qari:b","جدا":"Jiddan","جديد":"Ji:di:d","جاي":"Ja:j","كنت":"Kunt","كان":"Ka:n","مين":"mi:n","ليش":"le:ʃ","اشي":"ʔiʃi","هاي":"ha:j","هاد":"ha:d","هسا":"hassa","دغري":"dɣri","مبارح":"mba:riħ","بكرا":"bukra","اليوم":"ilju:m"};
+const MAP={ب:'b',ت:'t',ث:'θ',ج:'J',ح:'ħ',خ:'x',د:'d',ذ:'ð',ر:'r',ز:'z',س:'s',ش:'ʃ',ص:'sˤ',ض:'dˤ',ط:'tˤ',ظ:'ðˤ',ع:'ʕ',غ:'ɣ',ف:'f',ق:'Q',ك:'K',ل:'l',م:'m',ن:'n',ه:'h',ء:'ʔ',أ:'ʔ',إ:'ʔ',ئ:'ʔ',ؤ:'ʔ',ة:'e',ى:'a:'};
+const D=[{id:'u',n:'مدنية',q:'ʔ',j:'ʒ',kf:'k'},{id:'r',n:'ريفية',q:'k',j:'dʒ',kf:'tʃ'},{id:'b',n:'بدوية',q:'g',j:'dʒ',kf:'k'}];
+let cur=0,res=[];
+const clean=s=>s.replace(/[\u064B-\u065F\u0640]/g,'').replace(/[^\u0600-\u06FF\s]/g,' ').trim().split(/\s+/).filter(Boolean);
+function fb(w){let o='';const ch=[...w];const cons=c=>MAP[c]&&c!=='ة'&&c!=='ى';
+ch.forEach((c,i)=>{if(c==='ا'){o+=i?'a:':'ʔa';}else if(c==='و'&&i>0&&i<ch.length-1){o+='u:';}else if(c==='ي'&&i>0){o+=i<ch.length-1?'i:':'i:';}else if(c==='و'){o+='w';}else if(c==='ي'){o+='j';}else{o+=MAP[c]||'';if(cons(c)&&ch[i+1]&&cons(ch[i+1])&&i>0)o+='a';}});return o;}
+function conv(u,d){let s=u.replace(/Q/g,d.q).replace(/J/g,d.j);s=s.replace(/K(?=[ie])|K(?=ː)/g,d.kf==='tʃ'?'tʃ':'k').replace(/K/g,'k');return s;}
+function run(){const ws=clean(document.getElementById('t').value);
+res=ws.map(w=>{const hit=LEX[w];const u=hit||fb(w);return{w,u,c:hit?0.93:0.42};});render();}
+function render(){const o=document.getElementById('out');
+if(!res.length){o.innerHTML='<div class="empty">اكتب أو سجّل جملة</div>';return;}
+const d=D[cur];const full=res.map(r=>conv(r.u,d)).join(' ');
+const avg=Math.round(res.reduce((a,r)=>a+r.c,0)/res.length*100);
+o.innerHTML=`<div class="full"><b>الجملة كاملة · ثقة ${avg}%</b><div class="ipa">[${full}]</div></div>`+
+res.map(r=>`<div class="w ${r.c<.6?'low':''}"><div class="ar">${r.w}</div><div class="r"><div class="ipa" style="font-size:19px">[${conv(r.u,d)}]</div><div class="bar"><i style="width:${r.c*100}%"></i></div><div class="cf">${Math.round(r.c*100)}%${r.c<.6?' · راجعها':''}</div></div></div>`).join('');}
+const tabs=document.getElementById('tabs');
+function drawTabs(){tabs.innerHTML=D.map((x,i)=>`<button class="tab ${i===cur?'a':''}" data-i="${i}">${x.n}</button>`).join('');
+tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;drawTabs();render();});}
+drawTabs();
+document.getElementById('chips').innerHTML=['قلت قهوة','كيفك','جميل كتير','هلق يلا'].map(x=>`<button class="chip">${x}</button>`).join('');
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.getElementById('t').value=c.textContent;run();});
+document.getElementById('go').onclick=run;
+const mic=document.getElementById('mic');
+run();
+const esc=x=>String(x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const apiEl=document.getElementById('api'),srv=document.getElementById('srv'),fi=document.getElementById('f');
+const getApi=()=>{try{return localStorage.getItem('apiurl')||''}catch(e){return apiEl.value.trim()}};
+try{apiEl.value=localStorage.getItem('apiurl')||''}catch(e){}
+apiEl.oninput=()=>{try{localStorage.setItem('apiurl',apiEl.value.trim().replace(/\/+$/,''))}catch(e){}};
+document.getElementById('cfg').onclick=()=>{apiEl.style.display=apiEl.style.display==='none'?'block':'none';};
+document.getElementById('fbtn').onclick=()=>{if(!getApi()){apiEl.style.display='block';apiEl.focus();alert('الصق رابط السيرفر أولاً ثم اختر الملف');return;}fi.click();};
+async function sendBlob(blob,name){
+const base=getApi().replace(/\/+$/,'');
+if(!base){apiEl.style.display='block';apiEl.focus();alert('الصق رابط السيرفر أولاً');return;}
+srv.innerHTML='<div class="full"><b>جاري التحليل… (التسجيل الطويل ممكن ياخد كم دقيقة، لا تسكّر التطبيق)</b></div>';
+try{const fd=new FormData();fd.append('file',blob,name);
+const r=await fetch(base+'/transcribe',{method:'POST',body:fd});
+if(!r.ok)throw new Error('HTTP '+r.status);const d=await r.json();
+srv.innerHTML='<div class="full"><b>الكتابة الصوتية من الصوت مباشرة</b><div class="ipa">['+esc(d.ipa)+']</div><div class="cf" dir="ltr" style="text-align:left">'+esc(d.phonemes)+'</div></div>';}
+catch(e){srv.innerHTML='<div class="full"><b>تعذّر التحليل: '+esc(e.message)+'</b></div>';}}
+fi.onchange=()=>{const file=fi.files[0];if(file)sendBlob(file,file.name);fi.value='';};
+let mr=null,chunks=[],stream=null,t0=0,tick=null;
+mic.onclick=async()=>{
+if(mr&&mr.state==='recording'){mr.stop();return;}
+if(!getApi()){apiEl.style.display='block';apiEl.focus();alert('الصق رابط السيرفر أولاً');return;}
+try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+chunks=[];mr=new MediaRecorder(stream);
+mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+mr.onstop=()=>{clearInterval(tick);mic.classList.remove('on');mic.textContent='🎤';stream.getTracks().forEach(t=>t.stop());
+const type=mr.mimeType||'audio/webm';const ext=type.includes('mp4')?'m4a':type.includes('ogg')?'ogg':'webm';
+sendBlob(new Blob(chunks,{type}),'rec.'+ext);};
+mr.start();t0=Date.now();mic.classList.add('on');
+tick=setInterval(()=>{const sec=Math.floor((Date.now()-t0)/1000);mic.textContent='⏹ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');if(sec>=300)mr.stop();},500);
+}catch(e){alert('تعذّر تشغيل المايك: '+(e&&e.message?e.message:e));}};
+</script>
+</body>
+</html>
