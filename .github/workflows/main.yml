@@ -82,6 +82,25 @@ jobs:
           echo 'org.gradle.jvmargs=-Xmx4g' >> android/gradle.properties
           npx cap sync android
 
+      - name: Set app icon
+        run: |
+          ICON="$(find . -maxdepth 1 -name '*.png' | head -1)"
+          if [ -z "$ICON" ]; then echo "No icon png found, keeping default"; exit 0; fi
+          echo "Using icon: $ICON"
+          pip install --quiet pillow
+          python - "$ICON" <<'PY'
+          import sys, os, shutil
+          from PIL import Image
+          src = Image.open(sys.argv[1]).convert("RGBA")
+          res = "android/app/src/main/res"
+          shutil.rmtree(res + "/mipmap-anydpi-v26", ignore_errors=True)
+          for d, px in {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}.items():
+              os.makedirs(res + "/mipmap-" + d, exist_ok=True)
+              img = src.resize((px, px), Image.LANCZOS)
+              for n in ("ic_launcher.png", "ic_launcher_round.png", "ic_launcher_foreground.png"):
+                  img.save(res + "/mipmap-" + d + "/" + n)
+          PY
+
       - name: Build APK
         working-directory: android
         run: |
