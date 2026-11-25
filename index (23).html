@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<title>Transcription</title>
+<style>
+:root{--bg:#eef3f2;--card:#fff;--ink:#0e1f1c;--mut:#5b6e6a;--acc:#0f766e;--acc2:#d8f0ec;--line:#dbe6e3;--warn:#c2410c;--sh:0 6px 24px rgba(15,60,55,.08);
+box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#081211;--card:#102220;--ink:#e6f3f0;--mut:#8aa5a0;--acc:#2dd4bf;--acc2:#0d2e2a;--line:#1f3835;--warn:#fbbf24;--sh:0 6px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.6}
+.hero{position:relative;overflow:hidden;padding:calc(env(safe-area-inset-top,0px) + 26px) 20px 56px;background:linear-gradient(135deg,#0b4d47 0%,#0f766e 55%,#14a39a 100%);color:#fff;border-radius:0 0 34px 34px}
+.hero h1{font-size:28px;margin:0 0 4px;letter-spacing:.3px;position:relative;text-align:right}
+.hero .sub{color:rgba(255,255,255,.82);font-size:14px;margin:0;position:relative}
+.wave{position:absolute;left:14px;top:calc(env(safe-area-inset-top,0px) + 20px);display:flex;gap:3px;align-items:center;height:40px;opacity:.55;direction:ltr}
+.wave i{display:block;width:3px;border-radius:3px;background:#fff;height:10px;animation:wv 1.3s ease-in-out infinite}
+.wave i:nth-child(3n){animation-delay:.2s}.wave i:nth-child(3n+1){animation-delay:.5s}.wave i:nth-child(4n){animation-delay:.8s}
+@keyframes wv{0%,100%{height:8px}50%{height:34px}}
+.wrap{max-width:560px;margin:-34px auto 0;padding:0 16px 40px;position:relative}
+.sec{font-size:15px;color:var(--mut);margin:22px 4px 8px;font-weight:600}
+.sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.box{background:var(--card);border-radius:22px;padding:16px;box-shadow:var(--sh);border:1px solid var(--line)}
+.mic-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 0 10px}
+.guide{margin:6px 0 10px;padding:10px 26px 10px 12px;background:var(--bg);border-radius:14px;color:var(--mut);font-size:13px;line-height:1.9}
+.chips:empty{display:none}
+.nm{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-weight:700;margin-bottom:4px}
+.hint{color:var(--mut);font-size:13px;text-align:center}
+textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);font:inherit;font-size:19px;resize:none;outline:none;min-height:72px;padding:10px 12px}
+textarea:focus{border-color:var(--acc)}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.row.center{justify-content:center}
+button{font:inherit;border:0;border-radius:14px;cursor:pointer;transition:transform .12s}
+button:active{transform:scale(.96)}
+.go{background:linear-gradient(135deg,#0f766e,#14a39a);color:#fff;flex:1;font-weight:700;padding:13px 16px;box-shadow:0 6px 16px rgba(15,118,110,.3)}
+.mic{min-width:88px;height:88px;border-radius:999px;padding:0 18px;font-size:30px;color:#fff;background:linear-gradient(145deg,#0f766e,#14b8a6);box-shadow:0 10px 26px rgba(15,118,110,.4)}
+.mic.on{background:linear-gradient(145deg,#dc2626,#f97316);font-size:18px;font-weight:700;animation:pl 1.2s infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}100%{box-shadow:0 0 0 22px rgba(220,38,38,0)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 0}
+.chip{background:var(--acc2);border:1px solid transparent;color:var(--acc);padding:7px 13px;border-radius:99px;font-size:14px;font-weight:600}
+.tabs{display:flex;gap:4px;margin:22px 0 12px;background:var(--card);padding:4px;border-radius:16px;border:1px solid var(--line);box-shadow:var(--sh)}
+.tab{flex:1;background:transparent;color:var(--mut);padding:10px 4px;font-size:14px;border-radius:12px}
+.tab.a{background:linear-gradient(135deg,#0f766e,#14a39a);color:#fff;font-weight:700}
+.full{background:linear-gradient(135deg,var(--acc2),var(--card));border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:12px 0;box-shadow:var(--sh)}
+.full b{display:block;font-size:12px;color:var(--mut);font-weight:600;margin-bottom:2px}
+.ipa{font-family:"Charis SIL","Doulos SIL","Gentium Plus","Noto Sans","Segoe UI",serif;direction:ltr;text-align:left;font-size:22px;letter-spacing:.3px;overflow-wrap:anywhere;word-break:break-word}
+.w{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;box-shadow:var(--sh)}
+.w .ar{font-size:18px;font-weight:600}
+.w .r{text-align:left;direction:ltr}
+.bar{height:5px;border-radius:9px;background:var(--line);margin-top:5px;width:90px;overflow:hidden;margin-inline-start:auto}
+.bar i{display:block;height:100%;background:var(--acc)}
+.low .bar i{background:var(--warn)}
+.cf{font-size:11.5px;color:var(--mut);overflow-wrap:anywhere}
+.note{font-size:12.5px;color:var(--mut);margin-top:18px;text-align:center}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:8px;box-shadow:var(--sh)}
+.rec audio{width:100%}
+.rec input,.rec select{flex:1;min-width:0;padding:9px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.empty{color:var(--mut);text-align:center;padding:22px 0;font-size:14px}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<h1 dir="ltr">Transcription</h1>
+<p class="sub">حوّل صوتك لكتابة صوتية IPA بكل اللهجات الأردنية</p>
+</header>
+<main class="wrap">
+<section class="box">
+<div class="mic-wrap"><button class="mic" id="mic" title="تسجيل">🎤</button><div class="hint">اضغط وابدأ احكي بشكل طبيعي، الحشو والتأتأة بتنسجل متل ما هي</div></div>
+<div class="row center"><button class="chip" id="fbtn">📁 ارفع ملف صوتي</button><input type="file" id="f" accept="audio/*" hidden></div>
+</section>
+<div id="srv"></div>
+<div id="lib"></div>
+<h2 class="sec">تحويل نص إلى كتابة صوتية</h2>
+<section class="box">
+<textarea id="t" rows="3" placeholder="اكتب الجملة هنا…"></textarea>
+<div class="row"><button class="go" id="go">حوّل للكتابة الصوتية</button></div>
+<div class="chips" id="chips"></div>
+</section>
+<div class="tabs" id="tabs"></div>
+<div id="out"><div class="empty">النتيجة بتظهر هون بعد ما تكتب جملة أو تسجّل صوتك.</div></div>
+<p class="note">النتائج تقديرية. التحليل الصوتي بيشتغل جوّا جهازك بدون إنترنت، والدقة بتتحسن لما نضيف تسجيلاتك لتدريب النموذج.</p>
+</main>
+<script src="ort/ort.wasm.min.js"></script>
+<script>
+const LEX={"كيفك":"Ki:fak","قلب":"Qalb","قلت":"Qult","قهوة":"Qahwe","هلق":"hallaQ","كتير":"Kti:r","جميل":"Jami:l","شو":"ʃu:","بدك":"biddak","بدي":"biddi","وين":"we:n","منيح":"mni:ħ","يلا":"jalla","شكرا":"ʃukran","مرحبا":"marħaba","صباح":"sˤaba:ħ","الخير":"ilxe:r","تشرب":"tiʃrab","انت":"ʔinte","ولد":"walad","بيت":"bajt","كلب":"kalb","قمر":"Qamar","الجو":"iljaww","حلو":"ħilu","اهلا":"ʔahlan","سلام":"sala:m","عليكم":"ʕalajkum","الله":"alla:h","ماما":"ma:ma","بابا":"ba:ba","اكل":"ʔakil","ماي":"ma:j","مي":"mi:j","بنت":"bint","شب":"ʃabb","دار":"da:r","كبير":"Kbi:r","صغير":"sˤɣi:r","طيب":"tˤajjib","زلمة":"zalame","حكي":"ħaki:","قدام":"Quddam","وقت":"waQt","قال":"Qa:l","قريب":"Qari:b","جدا":"Jiddan","جديد":"Ji:di:d","جاي":"Ja:j","كنت":"Kunt","كان":"Ka:n","مين":"mi:n","ليش":"le:ʃ","اشي":"ʔiʃi","هاي":"ha:j","هاد":"ha:d","هسا":"hassa","دغري":"dɣri","مبارح":"mba:riħ","بكرا":"bukra","اليوم":"ilju:m"};
+const MAP={ب:'b',ت:'t',ث:'θ',ج:'J',ح:'ħ',خ:'x',د:'d',ذ:'ð',ر:'r',ز:'z',س:'s',ش:'ʃ',ص:'sˤ',ض:'dˤ',ط:'tˤ',ظ:'ðˤ',ع:'ʕ',غ:'ɣ',ف:'f',ق:'Q',ك:'K',ل:'l',م:'m',ن:'n',ه:'h',ء:'ʔ',أ:'ʔ',إ:'ʔ',ئ:'ʔ',ؤ:'ʔ',ة:'e',ى:'a:'};
+const D=[{id:'u',n:'مدنية',q:'ʔ',j:'ʒ',kf:'k'},{id:'r',n:'ريفية',q:'k',j:'dʒ',kf:'tʃ'},{id:'b',n:'بدوية',q:'g',j:'dʒ',kf:'k'}];
+let cur=0,res=[];
+const clean=s=>s.replace(/[\u064B-\u065F\u0640]/g,'').replace(/[^\u0600-\u06FF\s]/g,' ').trim().split(/\s+/).filter(Boolean);
+function fb(w){let o='';const ch=[...w];const cons=c=>MAP[c]&&c!=='ة'&&c!=='ى';
+ch.forEach((c,i)=>{if(c==='ا'){o+=i?'a:':'ʔa';}else if(c==='و'&&i>0&&i<ch.length-1){o+='u:';}else if(c==='ي'&&i>0){o+=i<ch.length-1?'i:':'i:';}else if(c==='و'){o+='w';}else if(c==='ي'){o+='j';}else{o+=MAP[c]||'';if(cons(c)&&ch[i+1]&&cons(ch[i+1])&&i>0)o+='a';}});return o;}
+function conv(u,d){let s=u.replace(/Q/g,d.q).replace(/J/g,d.j);s=s.replace(/K(?=[ie])|K(?=ː)/g,d.kf==='tʃ'?'tʃ':'k').replace(/K/g,'k');return s;}
+function run(){const ws=clean(document.getElementById('t').value);
+res=ws.map(w=>{const hit=LEX[w];const u=hit||fb(w);return{w,u,c:hit?0.93:0.42};});render();}
+function render(){const o=document.getElementById('out');
+if(!res.length){o.innerHTML='<div class="empty">اكتب جملة بالصندوق فوق واضغط «حوّل للكتابة الصوتية»، أو سجّل صوتك من زر المايك.</div>';return;}
+const d=D[cur];const full=res.map(r=>conv(r.u,d)).join(' ');
+const avg=Math.round(res.reduce((a,r)=>a+r.c,0)/res.length*100);
+o.innerHTML=`<div class="full"><b>الجملة كاملة · ثقة ${avg}%</b><div class="ipa">[${full}]</div></div>`+
+res.map(r=>`<div class="w ${r.c<.6?'low':''}" style="flex-wrap:wrap"><div class="ar">${r.w}</div><div class="r"><div class="ipa" style="font-size:19px">[${conv(r.u,d)}]</div><div class="bar"><i style="width:${r.c*100}%"></i></div><div class="cf">${Math.round(r.c*100)}%${r.c<.6?' · راجعها':''}</div></div><div style="flex-basis:100%">${sylBoxes(ipaToks(conv(r.u,d)))}</div></div>`).join('');}
+const tabs=document.getElementById('tabs');
+function drawTabs(){tabs.innerHTML=D.map((x,i)=>`<button class="tab ${i===cur?'a':''}" data-i="${i}">${x.n}</button>`).join('');
+tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=+b.dataset.i;drawTabs();render();});}
+drawTabs();
+document.getElementById('chips').innerHTML=[].map(x=>`<button class="chip">${x}</button>`).join('');
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.getElementById('t').value=c.textContent;run();});
+document.getElementById('go').onclick=run;
+const mic=document.getElementById('mic');
+const esc=x=>String(x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const srv=document.getElementById('srv'),fi=document.getElementById('f');
+document.getElementById('fbtn').onclick=()=>fi.click();
+let sess=null,idTok=null;
+const SPECIAL=new Set(['<pad>','<s>','</s>','<unk>']);
+const setMsg=t=>{srv.innerHTML='<div class="full"><b>'+t+'</b></div>';};
+const yieldUI=()=>new Promise(r=>setTimeout(r,30));
+async function ensureOrt(){
+if(typeof ort!=='undefined')return;
+const errs=[];
+try{const m=await import('./ort/ort.wasm.min.mjs');window.ort=(m.default&&m.default.InferenceSession)?m.default:m;}catch(e){errs.push('mjs: '+(e&&e.message?e.message:e));}
+if(typeof ort!=='undefined')return;
+try{const r=await fetch('ort/ort.wasm.min.js');if(!r.ok)throw new Error('HTTP '+r.status);(0,eval)(await r.text());}catch(e){errs.push('js: '+(e&&e.message?e.message:e));}
+if(typeof ort==='undefined')throw new Error('محرك ort ما اشتغل ← '+errs.join(' | '));}
+async function loadModel(){
+if(sess)return;
+await ensureOrt();
+ort.env.wasm.wasmPaths=new URL('ort/',document.baseURI).href;ort.env.wasm.numThreads=1;
+setMsg('تحميل النموذج (أول مرة بياخد وقت)…');await yieldUI();
+const vr=await fetch('model/vocab.json');if(!vr.ok)throw new Error('ملف النموذج غير موجود');
+const vocab=await vr.json();idTok=[];for(const k in vocab)idTok[vocab[k]]=k;
+const mr_=await fetch('model/model_q.onnx');if(!mr_.ok)throw new Error('ملف النموذج غير موجود');
+const buf=await mr_.arrayBuffer();
+sess=await ort.InferenceSession.create(buf,{executionProviders:['wasm']});}
+async function decodeAudio(blob){
+const ab=await blob.arrayBuffer();const AC=window.AudioContext||window.webkitAudioContext;
+const ctx=new AC({sampleRate:16000});const buf=await ctx.decodeAudioData(ab);ctx.close();
+const n=buf.length,ch=buf.numberOfChannels,out=new Float32Array(n);
+for(let c=0;c<ch;c++){const d=buf.getChannelData(c);for(let i=0;i<n;i++)out[i]+=d[i]/ch;}
+return out;}
+function norm(a){let m=0;for(let i=0;i<a.length;i++)m+=a[i];m/=a.length;let v=0;
+for(let i=0;i<a.length;i++){const d=a[i]-m;v+=d*d;}v=Math.sqrt(v/a.length+1e-7);
+const o=new Float32Array(a.length);for(let i=0;i<a.length;i++)o[i]=(a[i]-m)/v;return o;}
+function ctc(lg,T,V,off){const res=[],GAP=10,FS=320/16000;let prev=-1,gap=1e9,last=null;
+for(let t=0;t<T;t++){let b=0,bv=-1e30;const o=t*V;for(let v=0;v<V;v++){const x=lg[o+v];if(x>bv){bv=x;b=v;}}
+const tok=idTok[b];
+if(!tok||SPECIAL.has(tok)){gap++;prev=b;continue;}
+let sum=0;for(let v=0;v<V;v++)sum+=Math.exp(lg[o+v]-bv);const p=1/sum,ts=off+t*FS;
+if(b!==prev){last={tok,t0:ts,t1:ts,p,nb:gap>=GAP};res.push(last);}
+else if(last){last.t1=ts;if(p>last.p)last.p=p;}
+gap=0;prev=b;}
+return res;}
+let lastSegs=[],lastPCM=null,weak=false,playCtx=null;
+let lastDet=null,curRec=null;
+const VOW=/^[aeiouəɐɑæɛɜɪʊʌɔøyɨɵ]/;
+const fmt=t=>{const m=Math.floor(t/60),s=t-m*60;return m+':'+s.toFixed(1).padStart(4,'0');};
+function classify(g){const tk=g.toks.map(x=>x.tok),tags=[];
+if(tk.every(t=>VOW.test(t))&&g.end-g.start>=0.3)tags.push('تمطيط / حشو');
+let run=1,rep=false;for(let i=1;i<tk.length;i++){run=tk[i]===tk[i-1]?run+1:1;if(run>=3)rep=true;}
+if(!rep&&tk.length>=4&&tk[0]===tk[2]&&tk[1]===tk[3]&&tk[0]!==tk[1])rep=true;
+if(rep)tags.push('تكرار / تأتأة');return tags;}
+function playSeg(idx){const g=lastSegs[idx];if(!g||!lastPCM)return;
+try{const AC=window.AudioContext||window.webkitAudioContext;if(!playCtx)playCtx=new AC({sampleRate:16000});
+const s0=Math.max(0,Math.floor((g.start-0.08)*16000)),s1=Math.min(lastPCM.length,Math.floor((g.end+0.1)*16000));
+const part=lastPCM.slice(s0,s1),buf=playCtx.createBuffer(1,part.length,16000);buf.copyToChannel(part,0);
+const src=playCtx.createBufferSource();src.buffer=buf;src.connect(playCtx.destination);
+if(playCtx.state==='suspended')playCtx.resume();src.start();}catch(e){alert('تعذّر التشغيل');}}
+function syllabify(toks){
+const items=[];
+for(const x of toks){const t=x.tok;
+if((t==='ː'||t===':')&&items.length&&items[items.length-1].v){items[items.length-1].long=true;continue;}
+const v=VOW.test(t),base=t.replace(/[ː:]/g,''),long=/[ː:]/.test(t);
+const p=items[items.length-1];
+if(v&&p&&p.v&&p.base===base){p.long=true;continue;}
+items.push({tok:t,base,v,long});}
+items.forEach(i=>{if(i.v&&i.long&&!/[ː:]/.test(i.tok))i.tok=i.base+'ː';});
+const nuc=[];items.forEach((i,k)=>{if(i.v)nuc.push(k);});
+const cuts=[0];
+for(let n=0;n<nuc.length-1;n++){const gap=nuc[n+1]-nuc[n]-1;
+cuts.push(gap===0?nuc[n]+1:nuc[n+1]-1);}
+cuts.push(items.length);
+const out=[];
+for(let c=0;c<cuts.length-1;c++){const part=items.slice(cuts[c],cuts[c+1]);if(!part.length)continue;
+out.push({ipa:part.map(i=>i.tok).join(''),pat:part.map(i=>i.v?(i.long?'VV':'V'):'C').join('')});}
+return out;}
+function ipaToks(s){return (s.match(/dʒ|tʃ|[^\sːˤ:ʰ][ːˤ:ʰ]*/gu)||[]).map(t=>({tok:t}));}
+function sylBoxes(toks){return '<div dir="ltr" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">'+syllabify(toks).map(y=>'<div style="text-align:center;border:1px solid var(--line);border-radius:10px;padding:4px 10px;background:var(--bg)"><div class="ipa" style="font-size:18px">'+esc(y.ipa)+'</div><div class="cf" style="font-family:monospace;font-size:13px;color:var(--acc)">'+y.pat+'</div></div>').join('')+'</div>';}
+function detectDialect(all){
+const T=all.map(r=>r.tok);let g=0,tsh=0,dj=0,zh=0,th=0;
+T.forEach((t,i)=>{
+if(/^[gɡ]$/.test(t))g++;
+else if(/^(tʃ|t͡ʃ|ʧ)$/.test(t))tsh++;
+else if(t==='ʃ'&&T[i-1]==='t')tsh++;
+else if(/^(dʒ|d͡ʒ|ʤ)$/.test(t))dj++;
+else if(t==='ʒ'&&T[i-1]==='d')dj++;
+else if(t==='ʒ')zh++;
+else if(t==='θ'||t==='ð')th++;});
+const sc={'بدوية':3*g+dj+0.5*th,'ريفية':2.5*tsh+dj+0.5*th,'مدنية':2*zh};
+const ent=Object.entries(sc).sort((a,b)=>b[1]-a[1]),tot=ent.reduce((x,e)=>x+e[1],0);
+const share=tot?ent[0][1]/tot:0;
+const ev=[['g',g],['tʃ',tsh],['dʒ',dj],['ʒ',zh],['θ/ð',th]].filter(e=>e[1]>0);
+return(tot>=2&&share>=0.55)?{label:ent[0][0],conf:Math.round(share*100),ev}:{label:'',conf:0,ev};}
+function drawReport(r,dial,uipa,nm){
+const W=1240,H=1754,M=80,pg=[],AR='"Noto Sans Arabic","Segoe UI",Tahoma,sans-serif',IP='"Charis SIL","Doulos SIL","Gentium Plus","Noto Sans","Segoe UI",serif';
+let cx,y;const segs=r.res.segs,det=r.res.det||{ev:[]};
+const np=()=>{const c=document.createElement('canvas');c.width=W;c.height=H;cx=c.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,W,H);y=M;pg.push(c);};
+const need=h=>{if(y+h>H-M-30)np();};
+function lines(t,font,mw){cx.font=font;const o=[];let cur='';for(const w of t.split(' ')){const tr=cur?cur+' '+w:w;if(!cur||cx.measureText(tr).width<=mw)cur=tr;else{o.push(cur);cur=w;}}if(cur)o.push(cur);
+const f=[];for(const l of o){if(cx.measureText(l).width<=mw){f.push(l);continue;}let c='';for(const ch of l){if(cx.measureText(c+ch).width>mw){f.push(c);c=ch;}else c+=ch;}if(c)f.push(c);}return f;}
+function txt(t,size,color,rtl,o){o=o||{};const font=(o.b?'bold ':'')+size+'px '+(rtl?AR:IP);
+for(const l of lines(t,font,W-2*M)){need(size*1.5);cx.font=font;cx.fillStyle=color;cx.direction=rtl?'rtl':'ltr';cx.textAlign=rtl?'right':'left';cx.textBaseline='top';cx.fillText(l,rtl?W-M:M,y);y+=size*1.5;}y+=o.gap||0;}
+np();cx.fillStyle='#0f766e';cx.fillRect(0,0,W,170);
+cx.fillStyle='#fff';cx.textBaseline='top';cx.font='bold 56px '+AR;cx.direction='ltr';cx.textAlign='left';cx.fillText('Transcription',M,52);
+cx.font='32px '+AR;cx.direction='rtl';cx.textAlign='right';cx.fillText('تقرير التحليل الصوتي',W-M,66);y=215;
+txt('اسم العينة: '+(nm||'بدون اسم'),38,'#111',true,{b:true,gap:6});
+txt('التاريخ: '+new Date(r.id).toLocaleString('ar'),26,'#555',true);
+txt('اللهجة: '+(dial||det.label||'غير محدد')+(det.ev&&det.ev.length?'  (العلامات: '+det.ev.map(e=>e[0]+' ×'+e[1]).join(' · ')+')':''),26,'#111',true,{gap:12});
+if(uipa){txt('الـ IPA الصحيح (مكتوب يدوياً):',24,'#555',true);txt(uipa,32,'#111',false,{gap:12});}
+cx.fillStyle='#d5dedb';cx.fillRect(M,y,W-2*M,2);y+=22;
+txt('الجملة كاملة:',24,'#555',true);txt('['+segs.map(g=>g.toks.map(x=>x.tok).join('')).join(' ')+']',34,'#0b4d47',false,{gap:20});
+segs.forEach((g,i)=>{need(230);const tg=classify(g);
+txt((i+1)+')  '+fmt(g.start)+' – '+fmt(g.end)+(tg.length?'   ·   '+tg.join('، '):''),22,'#666',true);
+txt('['+g.toks.map(x=>x.tok).join('')+']',32,'#111',false);
+let x=M;const bh=84;
+for(const sy of syllabify(g.toks)){cx.font='30px '+IP;const w1=cx.measureText(sy.ipa).width;cx.font='22px monospace';const w2=cx.measureText(sy.pat).width;const bw=Math.max(w1,w2)+34;
+if(x+bw>W-M){x=M;y+=bh+10;}need(bh);
+cx.strokeStyle='#b8c7c3';cx.lineWidth=2;cx.strokeRect(x,y,bw,bh);cx.textAlign='center';cx.direction='ltr';
+cx.font='30px '+IP;cx.fillStyle='#111';cx.fillText(sy.ipa,x+bw/2,y+8);cx.font='22px monospace';cx.fillStyle='#0f766e';cx.fillText(sy.pat,x+bw/2,y+52);x+=bw+10;}
+y+=bh+16;cx.fillStyle='#e6ecea';cx.fillRect(M,y,W-2*M,1);y+=18;});
+need(40);txt('C = ساكن، V = علة قصيرة، VV = علة طويلة. النتائج تقديرية.',22,'#777',true);
+pg.forEach((c,i)=>{const k=c.getContext('2d');k.fillStyle='#888';k.font='22px sans-serif';k.direction='ltr';k.textAlign='center';k.textBaseline='top';k.fillText((i+1)+' / '+pg.length,W/2,H-56);});
+return pg;}
+function pdfFromCanvases(cvs){
+const enc=new TextEncoder(),parts=[],offs=[];let off=0;
+const push=b=>{const u=typeof b==='string'?enc.encode(b):b;parts.push(u);off+=u.length;};
+const obj=(n,body)=>{offs[n]=off;push(n+' 0 obj\n'+body+'\nendobj\n');};
+const N=cvs.length,kids=[];for(let i=0;i<N;i++)kids.push((3+i*3)+' 0 R');
+push('%PDF-1.4\n');obj(1,'<</Type/Catalog/Pages 2 0 R>>');obj(2,'<</Type/Pages/Kids['+kids.join(' ')+']/Count '+N+'>>');
+cvs.forEach((c,i)=>{const b=3+i*3,raw=atob(c.toDataURL('image/jpeg',0.92).split(',')[1]),bytes=new Uint8Array(raw.length);for(let k=0;k<raw.length;k++)bytes[k]=raw.charCodeAt(k);
+obj(b,'<</Type/Page/Parent 2 0 R/MediaBox[0 0 595 842]/Resources<</XObject<</Im0 '+(b+2)+' 0 R>>>>/Contents '+(b+1)+' 0 R>>');
+const cs='q 595 0 0 842 0 0 cm /Im0 Do Q';obj(b+1,'<</Length '+cs.length+'>>\nstream\n'+cs+'\nendstream');
+offs[b+2]=off;push((b+2)+' 0 obj\n<</Type/XObject/Subtype/Image/Width '+c.width+'/Height '+c.height+'/ColorSpace/DeviceRGB/BitsPerComponent 8/Filter/DCTDecode/Length '+bytes.length+'>>\nstream\n');push(bytes);push('\nendstream\nendobj\n');});
+const total=3+N*3;let x='xref\n0 '+total+'\n0000000000 65535 f \n';for(let i=1;i<total;i++)x+=String(offs[i]).padStart(10,'0')+' 00000 n \n';
+const xr=off;push(x+'trailer\n<</Size '+total+'/Root 1 0 R>>\nstartxref\n'+xr+'\n%%EOF');
+return new Blob(parts,{type:'application/pdf'});}
+async function savePdf(r,dial,uipa,nm){
+try{const blob=pdfFromCanvases(drawReport(r,dial,uipa,nm)),fname='Transcription-'+r.id+'.pdf',C=window.Capacitor;
+if(C&&typeof C.nativePromise==='function'){try{
+const b64=await new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(',')[1]);fr.readAsDataURL(blob);});
+const w=await C.nativePromise('Filesystem','writeFile',{path:fname,data:b64,directory:'CACHE'});
+await C.nativePromise('Share','share',{title:nm||'تقرير التحليل',dialogTitle:'حفظ أو مشاركة ملف PDF',files:[w.uri]});return;}catch(e){}}
+const f=new File([blob],fname,{type:'application/pdf'});
+if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:nm||'تقرير التحليل'});return;}
+const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fname;a.click();
+}catch(e){if(!e||e.name!=='AbortError')alert('تعذّر إنشاء PDF: '+(e&&e.message?e.message:e));}}
+async function showRec(r){
+if(!r.res){if(confirm('ما في تحليل محفوظ لهالتسجيل. تحلله هلق؟')){curRec=r;window.scrollTo(0,0);analyze(r.blob);}return;}
+lastSegs=r.res.segs;lastDet=r.res.det;lastPCM=null;renderSegs();srv.scrollIntoView({behavior:'smooth'});
+try{lastPCM=await decodeAudio(r.blob);}catch(e){}}
+function renderSegs(){
+const gs=lastSegs.map(g=>({...g,toks:weak?g.toks.filter(x=>x.p>=0.5):g.toks})).filter(g=>g.toks.length);
+if(!gs.length){setMsg('ما انلقط كلام واضح بالتسجيل');return;}
+const full=gs.map(g=>g.toks.map(x=>x.tok).join('')).join(' ');
+let h='';
+if(lastDet)h+='<div class="full"><b>اللهجة (تقدير تلقائي)</b><div style="font-size:20px;font-weight:600">'+(lastDet.label?lastDet.label+' (تقدير)':'غير محدد')+'</div><div class="cf">'+(lastDet.ev.length?'العلامات: '+lastDet.ev.map(e=>e[0]+' ×'+e[1]).join(' · '):'ما لقيت علامات لهجية واضحة (ق، ك، ج) بهالتسجيل')+'</div></div>';
+h+='<div class="full"><b>الجملة كاملة</b><div class="ipa">['+esc(full)+']</div></div>';
+h+='<div class="row" style="margin:0 0 8px"><button class="chip" id="wk">'+(weak?'عرض كل الأصوات':'إخفاء الأصوات الضعيفة')+'</button></div>';
+let prevEnd=null;
+gs.forEach(g=>{
+if(prevEnd!==null&&g.start-prevEnd>=0.6)h+='<div class="cf" style="text-align:center;margin:4px 0">⏸ سكتة '+(g.start-prevEnd).toFixed(1)+' ث</div>';
+prevEnd=g.end;
+const tags=classify(g).map(t=>'<span class="chip" style="font-size:12px;padding:2px 9px;border-color:var(--warn);color:var(--warn)">'+t+'</span>').join(' ');
+const ph=g.toks.map(x=>'<span style="opacity:'+(x.p<0.5?0.4:1)+'">'+esc(x.tok)+'</span>').join('');
+h+='<div class="w" style="display:block"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="cf">'+fmt(g.start)+' – '+fmt(g.end)+'</span><span>'+tags+' <button class="chip pl" data-i="'+g.idx+'">▶</button></span></div><div class="ipa" style="margin-top:4px">['+ph+']</div>'+sylBoxes(g.toks)+'</div>';});
+h+='<div class="cf" style="margin-top:6px">الأصوات الباهتة = النموذج مش متأكد منها.<br>المقاطع: C = صوت ساكن (حرف)، V = علة قصيرة، VV = علة طويلة.</div>';
+srv.innerHTML=h;
+srv.querySelectorAll('.pl').forEach(b=>b.onclick=()=>playSeg(+b.dataset.i));
+document.getElementById('wk').onclick=()=>{weak=!weak;renderSegs();};}
+async function analyze(blob){
+const rec=curRec;curRec=null;
+try{await loadModel();setMsg('جاري فك الصوت…');await yieldUI();
+let a=await decodeAudio(blob);const MAX=16000*120;if(a.length>MAX)a=a.slice(0,MAX);
+lastPCM=a;const CH=16000*15,total=Math.ceil(a.length/CH),all=[];
+for(let i=0,k=0;i<a.length;i+=CH,k++){const seg=a.subarray(i,i+CH);if(seg.length<1600)continue;
+setMsg('جاري التحليل… '+Math.round(k/total*100)+'%');await yieldUI();
+const r=await sess.run({input_values:new ort.Tensor('float32',norm(seg),[1,seg.length])});
+const lg=r.logits;all.push(...ctc(lg.data,lg.dims[1],lg.dims[2],i/16000));}
+const groups=[];let cur=null;
+for(const r of all){if(!cur||r.nb){cur={toks:[],start:r.t0,end:r.t1};groups.push(cur);}cur.toks.push(r);cur.end=r.t1+0.02;}
+lastSegs=groups.map((g,idx)=>({...g,idx}));lastDet=detectDialect(all);
+{const di=D.findIndex(x=>x.n===lastDet.label);if(di>=0&&di!==cur){cur=di;drawTabs();render();}}
+if(rec){rec.res={segs:lastSegs,det:lastDet};if(lastDet.label&&!rec.dialect)rec.dialect=lastDet.label;await dbPut(rec);renderLib();}
+renderSegs();}
+catch(e){setMsg('تعذّر التحليل: '+(e&&e.message?e.message:e));}}
+fi.onchange=async()=>{const file=fi.files[0];if(file){const ext=(file.name.split('.').pop()||'audio').toLowerCase();const r0={id:Date.now(),blob:file,ext,dialect:'',ipa:''};await dbPut(r0);renderLib();curRec=r0;analyze(file);}fi.value='';};
+const lib=document.getElementById('lib');let mem=[];
+const odb=()=>new Promise((res,rej)=>{try{const q=indexedDB.open('sawt',1);q.onupgradeneeded=()=>q.result.createObjectStore('r',{keyPath:'id'});q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);}catch(e){rej(e);}});
+async function dbAll(){try{const d=await odb();return await new Promise(res=>{const r=d.transaction('r').objectStore('r').getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>res(mem);});}catch(e){return mem;}}
+async function dbPut(o){mem=mem.filter(x=>x.id!==o.id);mem.push(o);try{const d=await odb();await new Promise(res=>{const t=d.transaction('r','readwrite');t.objectStore('r').put(o);t.oncomplete=res;t.onerror=res;});}catch(e){}}
+async function dbDel(id){mem=mem.filter(x=>x.id!==id);try{const d=await odb();await new Promise(res=>{const t=d.transaction('r','readwrite');t.objectStore('r').delete(id);t.oncomplete=res;t.onerror=res;});}catch(e){}}
+async function renderLib(){const rs=(await dbAll()).sort((a,b)=>b.id-a.id);
+lib.innerHTML=rs.length?'<p class="sub" style="margin:16px 0 8px"><b>تسجيلاتي ('+rs.length+')</b></p>':'';
+rs.forEach(r=>{const url=URL.createObjectURL(r.blob);const d=document.createElement('div');d.className='rec';
+d.innerHTML='<input class="nm" placeholder="اسم العينة (اسم المتحدث)"><div class="cf" style="margin:0 2px 8px"></div><audio controls></audio><div class="row"><select><option value="">اللهجة</option><option>مدنية</option><option>ريفية</option><option>بدوية</option></select><input class="ip" dir="ltr" placeholder="IPA الصحيح"></div><div class="row"><button class="chip vw">📊 عرض التحليل</button><button class="chip pdf">📄 PDF</button></div><div class="row"><button class="chip sv">حفظ</button><button class="chip dl">حذف</button></div>';
+d.querySelector('audio').src=url;const sel=d.querySelector('select'),inp=d.querySelector('.ip'),nm=d.querySelector('.nm');sel.value=r.dialect||'';inp.value=r.ipa||'';nm.value=r.name||'';d.querySelector('.cf').textContent=new Date(r.id).toLocaleString('ar');
+d.querySelector('.sv').onclick=async()=>{r.dialect=sel.value;r.ipa=inp.value;r.name=nm.value.trim();await dbPut(r);alert('انحفظ');};
+d.querySelector('.vw').onclick=()=>showRec(r);
+d.querySelector('.pdf').onclick=()=>{if(!r.res){alert('حلّل التسجيل أول (اضغط عرض التحليل)');return;}savePdf(r,sel.value,inp.value,nm.value.trim());};
+d.querySelector('.dl').onclick=async()=>{if(confirm('حذف التسجيل؟')){await dbDel(r.id);renderLib();}};
+lib.appendChild(d);});}
+renderLib();
+let mr=null,chunks=[],stream=null,t0=0,tick=null;
+mic.onclick=async()=>{
+if(mr&&mr.state==='recording'){mr.stop();return;}
+try{try{const C=window.Capacitor;if(C&&typeof C.nativePromise==='function')await C.nativePromise('SpeechRecognition','requestPermissions',{});}catch(e){}
+stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+chunks=[];mr=new MediaRecorder(stream,{audioBitsPerSecond:128000});
+mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+mr.onstop=async()=>{clearInterval(tick);mic.classList.remove('on');mic.textContent='🎤';stream.getTracks().forEach(t=>t.stop());
+const type=mr.mimeType||'audio/webm';const ext=type.includes('mp4')?'m4a':type.includes('ogg')?'ogg':'webm';
+const blob=new Blob(chunks,{type});const rec0={id:Date.now(),blob,ext,dialect:'',ipa:''};await dbPut(rec0);renderLib();curRec=rec0;
+analyze(blob);};
+mr.start();t0=Date.now();mic.classList.add('on');
+tick=setInterval(()=>{const sec=Math.floor((Date.now()-t0)/1000);mic.textContent='⏹ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');if(sec>=300)mr.stop();},500);
+}catch(e){alert('تعذّر تشغيل المايك: '+(e&&e.message?e.message:e));}};
+run();
+</script>
+</body>
+</html>
