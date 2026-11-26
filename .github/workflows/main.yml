@@ -11,56 +11,60 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Convert test audio
+      - name: Convert test audio (optional)
         run: |
           F="$(find . -maxdepth 1 -type f \( -name '*.wav' -o -name '*.mp3' -o -name '*.m4a' -o -name '*.ogg' -o -name '*.webm' -o -name '*.aac' -o -name '*.opus' -o -name '*.flac' \) | head -1)"
-          if [ -z "$F" ]; then echo "Upload a test audio file to the repository root first"; exit 1; fi
+          if [ -z "$F" ]; then echo "No audio file found: running in vocabulary-only mode"; exit 0; fi
           echo "Using: $F"
           ffmpeg -y -loglevel error -i "$F" -ar 16000 -ac 1 /tmp/a.wav
           ls -la /tmp/a.wav
 
-      - name: Run models on the sample
+      - name: Inspect models
         run: |
           pip install --quiet --extra-index-url https://download.pytorch.org/whl/cpu torch==2.4.1 transformers==4.44.2 soundfile numpy==1.26.4 huggingface_hub
           python - <<'PY'
-          import json, time
-          import soundfile as sf
-          import torch
+          import json, os, time
           from huggingface_hub import hf_hub_download
-          from transformers import Wav2Vec2ForCTC
           MODELS = [
               "facebook/wav2vec2-xlsr-53-espeak-cv-ft",
               "nrshoudi/wav2vec2-large-xls-r-300m-Arabic-phoneme",
               "nrshoudi/wav2vec2-large-xls-r-300m-Arabic-phoneme-based",
           ]
           SPECIAL = {"<pad>", "<s>", "</s>", "<unk>", "[PAD]", "[UNK]", "[pad]", "[unk]", "<PAD>", "<UNK>"}
-          audio, sr = sf.read("/tmp/a.wav", dtype="float32")
-          audio = audio[: 16000 * 60]
-          x = ((audio - audio.mean()) / (audio.std() + 1e-7)).astype("float32")
-          print("audio seconds:", round(len(audio) / 16000, 1))
+          HAVE = os.path.exists("/tmp/a.wav")
+          print("mode:", "full (audio found)" if HAVE else "vocabulary only (no audio)")
+          if HAVE:
+              import soundfile as sf
+              import torch
+              from transformers import Wav2Vec2ForCTC
+              audio, sr = sf.read("/tmp/a.wav", dtype="float32")
+              audio = audio[: 16000 * 60]
+              x = ((audio - audio.mean()) / (audio.std() + 1e-7)).astype("float32")
           for m in MODELS:
               print("=" * 60)
               print("MODEL:", m, flush=True)
               try:
-                  t0 = time.time()
-                  model = Wav2Vec2ForCTC.from_pretrained(m).eval()
                   vocab = json.load(open(hf_hub_download(m, "vocab.json"), encoding="utf-8"))
                   inv = {i: t for t, i in vocab.items()}
                   print("vocab size:", len(vocab))
-                  print("tokens:", " ".join(inv[i] for i in sorted(inv))[:500])
-                  with torch.no_grad():
-                      logits = model(torch.tensor(x).unsqueeze(0)).logits[0]
-                  prev, out = -1, []
-                  for i in logits.argmax(-1).tolist():
-                      if i != prev:
-                          t = inv.get(i, "")
-                          if t == "|":
-                              out.append("|")
-                          elif t and t not in SPECIAL:
-                              out.append(t)
-                      prev = i
-                  print("OUTPUT:", " ".join(out))
-                  print("seconds:", round(time.time() - t0, 1), flush=True)
+                  print("tokens:", " ".join(inv[i] for i in sorted(inv)))
+                  if HAVE:
+                      t0 = time.time()
+                      model = Wav2Vec2ForCTC.from_pretrained(m).eval()
+                      with torch.no_grad():
+                          logits = model(torch.tensor(x).unsqueeze(0)).logits[0]
+                      prev, out = -1, []
+                      for i in logits.argmax(-1).tolist():
+                          if i != prev:
+                              t = inv.get(i, "")
+                              if t == "|":
+                                  out.append("|")
+                              elif t and t not in SPECIAL:
+                                  out.append(t)
+                          prev = i
+                      print("OUTPUT:", " ".join(out))
+                      print("seconds:", round(time.time() - t0, 1))
+                  print(flush=True)
               except Exception as e:
                   print("FAILED:", repr(e), flush=True)
           PY
